@@ -35,3 +35,27 @@ test "stats_monitor_histogram_and_sla" {
   // 2 out of 3 = 0.6666...
   assert_true(sla.violation_rate() > 0.666 && sla.violation_rate() < 0.667)
 }
+
+///|
+test "stats_rolling_summary" {
+  let roll = RollingSummary::new("CPU_Usage", 10.0)
+  roll.record(0.0, 100.0)
+  roll.record(5.0, 100.0)
+  roll.record(10.0, 0.0)
+  roll.record(15.0, 0.0)
+
+  // At t=15.0, window is [5.0, 15.0]. From 5.0 to 10.0 val=100.0 (5s), from 10.0 to 15.0 val=0.0 (5s). Mean = 50.0!
+  assert_eq(roll.rolling_mean(15.0), 50.0)
+}
+
+///|
+test "stats_percentile_tracker" {
+  let tracker = PercentileTracker::new("Latency_ms")
+  for i = 1; i <= 100; i = i + 1 {
+    tracker.record(Double::from_int(i))
+  }
+  assert_eq(tracker.count(), 100)
+  assert_true(tracker.p50() >= 50.0 && tracker.p50() <= 51.0)
+  assert_true(tracker.p95() >= 95.0 && tracker.p95() <= 96.0)
+  assert_true(tracker.p99() >= 99.0 && tracker.p99() <= 100.0)
+}
