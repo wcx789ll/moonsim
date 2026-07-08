@@ -1,0 +1,3 @@
+import {
+  "bins-c-language/moonsim/core/clock",
+}

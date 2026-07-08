@@ -1,0 +1,7 @@
+// import {
+//   "bins-c-language/moonsim" @lib,
+// }
+
+options(
+  "is-main": true,
+)

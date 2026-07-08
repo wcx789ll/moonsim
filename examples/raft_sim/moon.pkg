@@ -1,0 +1,9 @@
+import {
+  "bins-c-language/moonsim",
+  "bins-c-language/moonsim/core/event",
+  "bins-c-language/moonsim/network",
+}
+
+options(
+  "is-main": true,
+)
