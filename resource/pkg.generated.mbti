@@ -1,0 +1,95 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bins-c-language/moonsim/resource"
+
+import {
+  "bins-c-language/moonsim/core/clock",
+  "bins-c-language/moonsim/core/event",
+}
+
+// Values
+pub fn request_with_timeout(@event.EventManager, Resource, Int, Int, Double, (Bool) -> Unit) -> @clock.EventId
+
+// Errors
+
+// Types and methods
+pub(all) struct ActiveHolder {
+  id : Int
+  amount : Int
+  priority : Int
+  preempt_callback : () -> Unit
+}
+
+pub(all) struct Container {
+  name : String
+  capacity : Double
+  mut level : Double
+  // private fields
+}
+pub fn Container::capacity(Self) -> Double
+pub fn Container::get(Self, Double, (Bool) -> Unit) -> Unit
+pub fn Container::level(Self) -> Double
+pub fn Container::new(String, Double, Double) -> Self
+pub fn Container::put(Self, Double, (Bool) -> Unit) -> Unit
+
+pub(all) struct PreemptibleResource {
+  name : String
+  capacity : Int
+  mut available : Int
+  mut next_req_id : Int
+  mut next_holder_id : Int
+  // private fields
+}
+pub fn PreemptibleResource::available(Self) -> Int
+pub fn PreemptibleResource::capacity(Self) -> Int
+pub fn PreemptibleResource::holder_count(Self) -> Int
+pub fn PreemptibleResource::new(String, Int) -> Self
+pub fn PreemptibleResource::release(Self, Int) -> Unit
+pub fn PreemptibleResource::request(Self, Int, Int, (Int?) -> Unit, () -> Unit) -> Int
+
+pub(all) struct Resource {
+  name : String
+  capacity : Int
+  mut available : Int
+  mut next_req_id : Int
+  // private fields
+}
+pub fn Resource::available(Self) -> Int
+pub fn Resource::cancel_request(Self, Int) -> Bool
+pub fn Resource::capacity(Self) -> Int
+pub fn Resource::new(String, Int) -> Self
+pub fn Resource::queue_length(Self) -> Int
+pub fn Resource::release(Self, Int) -> Unit
+pub fn Resource::request(Self, Int, Int, (Bool) -> Unit) -> Int
+
+pub(all) struct ResourceRequest {
+  id : Int
+  amount : Int
+  priority : Int
+  callback : (Bool) -> Unit
+  mut cancelled : Bool
+}
+
+pub(all) struct Store[T] {
+  name : String
+  capacity : Int
+  // private fields
+}
+pub fn[T] Store::capacity(Self[T]) -> Int
+pub fn[T] Store::get(Self[T], (T) -> Unit) -> Unit
+pub fn[T] Store::new(String, Int) -> Self[T]
+pub fn[T] Store::put(Self[T], T, () -> Unit) -> Unit
+pub fn[T] Store::size(Self[T]) -> Int
+
+pub(all) struct StoreGetRequest[T] {
+  callback : (T) -> Unit
+}
+
+pub(all) struct StorePutRequest[T] {
+  item : T
+  callback : () -> Unit
+}
+
+// Type aliases
+
+// Traits
+

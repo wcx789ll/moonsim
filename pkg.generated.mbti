@@ -1,0 +1,47 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bins-c-language/moonsim"
+
+import {
+  "bins-c-language/moonsim/core/clock",
+  "bins-c-language/moonsim/core/event",
+  "bins-c-language/moonsim/network",
+  "bins-c-language/moonsim/resource",
+  "bins-c-language/moonsim/stats",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct Simulation {
+  clock : @clock.Clock
+  event_manager : @event.EventManager
+  // private fields
+}
+pub fn Simulation::active_event_count(Self) -> Int
+pub fn Simulation::clock(Self) -> @clock.Clock
+pub fn[T] Simulation::create_network_topology(Self, Int) -> @network.NetworkTopology[T]
+pub fn Simulation::create_percentile_tracker(Self, String) -> @stats.PercentileTracker
+pub fn Simulation::create_resource(Self, String, Int) -> @resource.Resource
+pub fn Simulation::create_rolling_summary(Self, String, Double) -> @stats.RollingSummary
+pub fn Simulation::create_sla_monitor(Self, String, Double) -> @stats.SlaMonitor
+pub fn Simulation::create_summary(Self, String, Double) -> @stats.TimeWeightedSummary
+pub fn Simulation::events(Self) -> @event.EventManager
+pub fn Simulation::get_resource(Self, String) -> @resource.Resource?
+pub fn Simulation::get_summary(Self, String) -> @stats.TimeWeightedSummary?
+pub fn Simulation::new() -> Self
+pub fn Simulation::now(Self) -> Double
+pub fn Simulation::register_process(Self, String, Array[(@event.ProcessContext) -> Double?]) -> Int
+pub fn Simulation::reset(Self) -> Unit
+pub fn Simulation::run(Self) -> Unit
+pub fn Simulation::run_until(Self, Double) -> Unit
+pub fn Simulation::schedule(Self, Double, Int, () -> Unit) -> @clock.EventId
+pub fn Simulation::schedule_at(Self, Double, Int, () -> Unit) -> @clock.EventId
+pub fn Simulation::start_process(Self, Int, Double, Int) -> @clock.EventId?
+pub fn Simulation::step(Self) -> Bool
+
+// Type aliases
+
+// Traits
+

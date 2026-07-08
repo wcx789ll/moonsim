@@ -1,0 +1,82 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bins-c-language/moonsim/core/clock"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct Clock {
+  mut time : SimTime
+  mut next_seq : Int64
+  heap : EventHeap
+  mut status : ClockStatus
+  mut target_time : Double?
+} derive(@debug.Debug)
+pub fn Clock::active_count(Self) -> Int
+pub fn Clock::cancel(Self, EventId) -> Bool
+pub fn Clock::filter_events(Self, (PriorityEvent) -> Bool) -> Int
+pub fn Clock::get_event(Self, EventId) -> PriorityEvent?
+pub fn Clock::new() -> Self
+pub fn Clock::next_event(Self) -> PriorityEvent?
+pub fn Clock::now(Self) -> SimTime
+pub fn Clock::now_seconds(Self) -> Double
+pub fn Clock::reset(Self) -> Unit
+pub fn Clock::schedule(Self, Double, Int, Int) -> EventId
+pub fn Clock::schedule_at(Self, SimTime, Int, Int) -> EventId
+pub fn Clock::set_target_time(Self, Double?) -> Unit
+pub fn Clock::status(Self) -> ClockStatus
+
+pub(all) enum ClockStatus {
+  Idle
+  Running
+  Paused
+  Completed
+} derive(Eq, @debug.Debug)
+
+pub(all) struct EventHeap {
+  // private fields
+} derive(@debug.Debug)
+pub fn EventHeap::active_count(Self) -> Int
+pub fn EventHeap::cancel_by_id(Self, EventId) -> Bool
+pub fn EventHeap::clear(Self) -> Unit
+pub fn EventHeap::filter_events(Self, (PriorityEvent) -> Bool) -> Int
+pub fn EventHeap::get_event_by_id(Self, EventId) -> PriorityEvent?
+pub fn EventHeap::is_empty(Self) -> Bool
+pub fn EventHeap::new() -> Self
+pub fn EventHeap::peek(Self) -> PriorityEvent?
+pub fn EventHeap::pop(Self) -> PriorityEvent?
+pub fn EventHeap::push(Self, PriorityEvent) -> Unit
+pub fn EventHeap::size(Self) -> Int
+
+pub(all) struct EventId {
+  seq : Int64
+} derive(Eq, @debug.Debug)
+pub fn EventId::compare(Self, Self) -> Int
+
+pub(all) struct PriorityEvent {
+  time : SimTime
+  priority : Int
+  id : EventId
+  mut cancelled : Bool
+  payload_id : Int
+} derive(@debug.Debug)
+pub fn PriorityEvent::compare(Self, Self) -> Int
+
+pub(all) struct SimTime {
+  val : Double
+} derive(Eq, @debug.Debug)
+pub fn SimTime::compare(Self, Self) -> Int
+pub fn SimTime::from_seconds(Double) -> Self
+pub fn SimTime::op_add(Self, Double) -> Self
+pub fn SimTime::to_seconds(Self) -> Double
+pub fn SimTime::zero() -> Self
+
+// Type aliases
+
+// Traits
+

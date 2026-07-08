@@ -1,0 +1,92 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bins-c-language/moonsim/stats"
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct Histogram {
+  name : String
+  mut count : Int
+  mut sum : Double
+  mut min_val : Double
+  mut max_val : Double
+  bin_width : Double
+  min_bin : Double
+  // private fields
+}
+pub fn Histogram::add(Self, Double) -> Unit
+pub fn Histogram::count(Self) -> Int
+pub fn Histogram::mean(Self) -> Double
+pub fn Histogram::new(String, Int, Double, Double) -> Self
+
+pub(all) struct PercentileTracker {
+  name : String
+  // private fields
+}
+pub fn PercentileTracker::count(Self) -> Int
+pub fn PercentileTracker::new(String) -> Self
+pub fn PercentileTracker::p50(Self) -> Double
+pub fn PercentileTracker::p90(Self) -> Double
+pub fn PercentileTracker::p95(Self) -> Double
+pub fn PercentileTracker::p99(Self) -> Double
+pub fn PercentileTracker::percentile(Self, Double) -> Double
+pub fn PercentileTracker::record(Self, Double) -> Unit
+
+pub(all) struct RollingSummary {
+  name : String
+  window_size : Double
+  // private fields
+}
+pub fn RollingSummary::new(String, Double) -> Self
+pub fn RollingSummary::record(Self, Double, Double) -> Unit
+pub fn RollingSummary::rolling_mean(Self, Double) -> Double
+
+pub(all) struct SlaMonitor {
+  name : String
+  threshold : Double
+  mut total : Int
+  mut violations : Int
+}
+pub fn SlaMonitor::new(String, Double) -> Self
+pub fn SlaMonitor::record(Self, Double) -> Bool
+pub fn SlaMonitor::total(Self) -> Int
+pub fn SlaMonitor::violation_rate(Self) -> Double
+pub fn SlaMonitor::violations(Self) -> Int
+
+pub(all) struct ThroughputTracker {
+  name : String
+  mut count : Int
+  mut start_time : Double
+  mut last_time : Double
+}
+pub fn ThroughputTracker::new(String, Double) -> Self
+pub fn ThroughputTracker::rate(Self) -> Double
+pub fn ThroughputTracker::record(Self, Double, Int) -> Unit
+
+pub(all) struct TimePoint {
+  time : Double
+  value : Double
+}
+
+pub(all) struct TimeWeightedSummary {
+  name : String
+  mut last_time : Double
+  mut last_value : Double
+  mut time_weighted_sum : Double
+  mut total_time : Double
+  mut min_value : Double
+  mut max_value : Double
+}
+pub fn TimeWeightedSummary::max(Self) -> Double
+pub fn TimeWeightedSummary::mean(Self) -> Double
+pub fn TimeWeightedSummary::min(Self) -> Double
+pub fn TimeWeightedSummary::new(String, Double, Double) -> Self
+pub fn TimeWeightedSummary::total_time(Self) -> Double
+pub fn TimeWeightedSummary::update(Self, Double, Double) -> Unit
+
+// Type aliases
+
+// Traits
+

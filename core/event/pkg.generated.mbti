@@ -1,0 +1,67 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bins-c-language/moonsim/core/event"
+
+import {
+  "bins-c-language/moonsim/core/clock",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub const PRIORITY_BACKGROUND : Int = 100
+
+pub const PRIORITY_CRITICAL : Int = 0
+
+pub const PRIORITY_HIGH : Int = 5
+
+pub const PRIORITY_LOW : Int = 20
+
+pub const PRIORITY_NORMAL : Int = 10
+
+pub fn clamp_priority(Int) -> Int
+
+// Errors
+
+// Types and methods
+pub(all) struct EventManager {
+  clock : @clock.Clock
+  mut next_action_id : Int
+  mut next_proc_id : Int
+  // private fields
+}
+pub fn EventManager::clock(Self) -> @clock.Clock
+pub fn EventManager::get_process_status(Self, Int) -> ProcessStatus?
+pub fn EventManager::new(@clock.Clock) -> Self
+pub fn EventManager::register_process(Self, String, Array[(ProcessContext) -> Double?]) -> Int
+pub fn EventManager::run(Self) -> Unit
+pub fn EventManager::run_until(Self, Double) -> Unit
+pub fn EventManager::schedule_action(Self, Double, Int, () -> Unit) -> @clock.EventId
+pub fn EventManager::start_process(Self, Int, Double, Int) -> @clock.EventId?
+pub fn EventManager::step(Self) -> Bool
+
+pub(all) struct Process {
+  id : Int
+  name : String
+  mut step_idx : Int
+  steps : Array[(ProcessContext) -> Double?]
+  mut status : ProcessStatus
+}
+pub impl Show for Process
+
+pub(all) struct ProcessContext {
+  manager : EventManager
+  clock : @clock.Clock
+  proc_id : Int
+}
+
+pub(all) enum ProcessStatus {
+  Ready
+  Running
+  Suspended
+  Terminated
+} derive(Eq, @debug.Debug)
+pub impl Show for ProcessStatus
+
+// Type aliases
+
+// Traits
+

@@ -1,0 +1,81 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bins-c-language/moonsim/network"
+
+import {
+  "bins-c-language/moonsim/core/event",
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct BandwidthLink {
+  src : Int
+  dst : Int
+  bandwidth_bps : Double
+  propagation_latency : Double
+  buffer_capacity_bytes : Int
+  mut current_buffer_bytes : Int
+  mut next_available_time : Double
+  mut packets_sent : Int
+  mut packets_delivered : Int
+  mut overflow_drops : Int
+  mut total_queueing_delay : Double
+}
+pub fn BandwidthLink::mean_queueing_delay(Self) -> Double
+pub fn BandwidthLink::new(Int, Int, Double, Double, Int) -> Self
+pub fn BandwidthLink::overflow_drops(Self) -> Int
+pub fn BandwidthLink::packets_delivered(Self) -> Int
+pub fn BandwidthLink::packets_sent(Self) -> Int
+pub fn BandwidthLink::transmit(Self, Double, Int) -> Double?
+pub fn BandwidthLink::update_buffer(Self, Double) -> Unit
+
+pub(all) struct NetworkLink {
+  src : Int
+  dst : Int
+  latency : Double
+  drop_probability : Double
+  mut packets_sent : Int
+  mut packets_dropped : Int
+  mut packets_delivered : Int
+}
+pub fn NetworkLink::new(Int, Int, Double, Double) -> Self
+pub fn NetworkLink::packets_delivered(Self) -> Int
+pub fn NetworkLink::packets_dropped(Self) -> Int
+pub fn NetworkLink::packets_sent(Self) -> Int
+
+pub(all) struct NetworkTopology[T] {
+  mgr : @event.EventManager
+  mut next_seed : Int
+  // private fields
+}
+pub fn[T] NetworkTopology::add_link(Self[T], Int, Int, Double, Double) -> Unit
+pub fn[T] NetworkTopology::add_node(Self[T], Int) -> Unit
+pub fn[T] NetworkTopology::get_link(Self[T], Int, Int) -> NetworkLink?
+pub fn[T] NetworkTopology::get_mailbox(Self[T], Int) -> Array[Packet[T]]
+pub fn[T] NetworkTopology::get_node_status(Self[T], Int) -> NodeStatus?
+pub fn[T] NetworkTopology::new(@event.EventManager, Int) -> Self[T]
+pub fn[T] NetworkTopology::pop_mailbox(Self[T], Int) -> Packet[T]?
+pub fn[T] NetworkTopology::send_packet(Self[T], Int, Int, T, Int, (Packet[T]) -> Unit) -> Bool
+pub fn[T] NetworkTopology::set_node_status(Self[T], Int, NodeStatus) -> Unit
+
+pub(all) enum NodeStatus {
+  Online
+  Offline
+  Partitioned
+} derive(Eq, @debug.Debug)
+pub impl Show for NodeStatus
+
+pub(all) struct Packet[T] {
+  src : Int
+  dst : Int
+  payload : T
+  send_time : Double
+}
+
+// Type aliases
+
+// Traits
+
