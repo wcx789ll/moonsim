@@ -71,3 +71,44 @@ test "store_and_container" {
   assert_true(put_ok)
   assert_eq(container.level(), 70.0)
 }
+
+///|
+test "preemptible_resource_priority_preemption" {
+  let pres = PreemptibleResource::new("PreemptibleCPU", 1)
+  let mut low_prio_acquired = false
+  let mut low_prio_preempted = false
+  let mut high_prio_acquired = false
+
+  // Low priority job (prio=10) acquires CPU
+  let _ = pres.request(
+    1,
+    10,
+    fn(holder) {
+      if holder is Some(_) {
+        low_prio_acquired = true
+      }
+    },
+    fn() { low_prio_preempted = true },
+  )
+  assert_true(low_prio_acquired)
+  assert_eq(pres.available(), 0)
+  assert_eq(pres.holder_count(), 1)
+  assert_eq(low_prio_preempted, false)
+
+  // High priority job (prio=1) requests CPU -> must preempt low priority job right now!
+  let _ = pres.request(
+    1,
+    1,
+    fn(holder) {
+      if holder is Some(_) {
+        high_prio_acquired = true
+      }
+    },
+    fn() {  },
+  )
+
+  assert_true(low_prio_preempted)
+  assert_true(high_prio_acquired)
+  assert_eq(pres.holder_count(), 1)
+  assert_eq(pres.available(), 0)
+}
