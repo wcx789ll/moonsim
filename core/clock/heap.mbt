@@ -10,7 +10,7 @@ pub(all) struct PriorityEvent {
 ///|
 pub fn PriorityEvent::compare(
   self : PriorityEvent,
-  other : PriorityEvent,
+  other : PriorityEvent
 ) -> Int {
   let time_cmp = self.time.compare(other.time)
   if time_cmp != 0 {
@@ -138,4 +138,43 @@ pub fn EventHeap::cancel_by_id(self : EventHeap, target_id : EventId) -> Bool {
     }
   }
   found
+}
+
+///|
+pub fn EventHeap::filter_events(
+  self : EventHeap,
+  predicate : (PriorityEvent) -> Bool
+) -> Int {
+  let mut count = 0
+  for i = 0; i < self.data.length(); i = i + 1 {
+    if !self.data[i].cancelled && predicate(self.data[i]) {
+      self.data[i].cancelled = true
+      count = count + 1
+    }
+  }
+  count
+}
+
+///|
+pub fn EventHeap::active_count(self : EventHeap) -> Int {
+  let mut count = 0
+  for i = 0; i < self.data.length(); i = i + 1 {
+    if !self.data[i].cancelled {
+      count = count + 1
+    }
+  }
+  count
+}
+
+///|
+pub fn EventHeap::get_event_by_id(
+  self : EventHeap,
+  target_id : EventId
+) -> PriorityEvent? {
+  for i = 0; i < self.data.length(); i = i + 1 {
+    if self.data[i].id == target_id {
+      return Some(self.data[i])
+    }
+  }
+  None
 }
