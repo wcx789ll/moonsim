@@ -19,9 +19,11 @@ pub fn BandwidthLink::new(
   dst : Int,
   bandwidth_bps : Double,
   propagation_latency : Double,
-  buffer_capacity_bytes : Int
+  buffer_capacity_bytes : Int,
 ) -> BandwidthLink {
-  if bandwidth_bps <= 0.0 || propagation_latency < 0.0 || buffer_capacity_bytes < 0 {
+  if bandwidth_bps <= 0.0 ||
+    propagation_latency < 0.0 ||
+    buffer_capacity_bytes < 0 {
     abort("Invalid BandwidthLink parameters")
   }
   {
@@ -48,7 +50,11 @@ pub fn BandwidthLink::update_buffer(self : BandwidthLink, now : Double) -> Unit 
     let remaining_time = self.next_available_time - now
     let remaining_bytes = (remaining_time * self.bandwidth_bps).to_int()
     if remaining_bytes < self.current_buffer_bytes {
-      self.current_buffer_bytes = if remaining_bytes > 0 { remaining_bytes } else { 0 }
+      self.current_buffer_bytes = if remaining_bytes > 0 {
+        remaining_bytes
+      } else {
+        0
+      }
     }
   }
 }
@@ -57,7 +63,7 @@ pub fn BandwidthLink::update_buffer(self : BandwidthLink, now : Double) -> Unit 
 pub fn BandwidthLink::transmit(
   self : BandwidthLink,
   now : Double,
-  size_bytes : Int
+  size_bytes : Int,
 ) -> Double? {
   self.packets_sent = self.packets_sent + 1
   self.update_buffer(now)

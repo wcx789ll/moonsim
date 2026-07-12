@@ -4,7 +4,7 @@ version = "0.1.0"
 
 readme = "README.mbt.md"
 
-repository = "https://github.com/bins-c-language/moonsim"
+repository = "https://github.com/wcx789ll/moonsim"
 
 license = "Apache-2.0"
 

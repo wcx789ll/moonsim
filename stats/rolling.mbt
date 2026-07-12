@@ -12,7 +12,10 @@ pub(all) struct RollingSummary {
 }
 
 ///|
-pub fn RollingSummary::new(name : String, window_size : Double) -> RollingSummary {
+pub fn RollingSummary::new(
+  name : String,
+  window_size : Double,
+) -> RollingSummary {
   if window_size <= 0.0 {
     abort("RollingSummary window_size must be positive")
   }
@@ -23,13 +26,16 @@ pub fn RollingSummary::new(name : String, window_size : Double) -> RollingSummar
 pub fn RollingSummary::record(
   self : RollingSummary,
   time : Double,
-  value : Double
+  value : Double,
 ) -> Unit {
   self.points.push({ time, value })
 }
 
 ///|
-pub fn RollingSummary::rolling_mean(self : RollingSummary, now : Double) -> Double {
+pub fn RollingSummary::rolling_mean(
+  self : RollingSummary,
+  now : Double,
+) -> Double {
   if self.points.is_empty() {
     return 0.0
   }
@@ -80,7 +86,10 @@ pub fn PercentileTracker::new(name : String) -> PercentileTracker {
 }
 
 ///|
-pub fn PercentileTracker::record(self : PercentileTracker, value : Double) -> Unit {
+pub fn PercentileTracker::record(
+  self : PercentileTracker,
+  value : Double,
+) -> Unit {
   self.samples.push(value)
 }
 
@@ -90,7 +99,10 @@ pub fn PercentileTracker::count(self : PercentileTracker) -> Int {
 }
 
 ///|
-pub fn PercentileTracker::percentile(self : PercentileTracker, p : Double) -> Double {
+pub fn PercentileTracker::percentile(
+  self : PercentileTracker,
+  p : Double,
+) -> Double {
   if self.samples.is_empty() {
     return 0.0
   }

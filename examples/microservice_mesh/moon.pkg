@@ -2,8 +2,9 @@ import {
   "bins-c-language/moonsim",
   "bins-c-language/moonsim/network",
   "bins-c-language/moonsim/stats",
-  "bins-c-language/moonsim/core/event"
+  "bins-c-language/moonsim/core/event",
 }
+
 options(
   "is-main": true,
 )

@@ -2,7 +2,7 @@
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![MoonBit: v0.1.20260703](https://img.shields.io/badge/MoonBit-v0.1.20260703-purple.svg)](https://moonbitlang.com)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![CI](https://github.com/wcx789ll/moonsim/actions/workflows/test.yml/badge.svg)](https://github.com/wcx789ll/moonsim/actions/workflows/test.yml)
 
 `MoonSim` 是专为 MoonBit 语言设计的**确定性离散事件仿真（Discrete-Event Simulation, DES）与分布式系统网络测试框架**。项目融合了 `SimPy` 的协程进程排队模型与 `ns-3` 的确定性虚拟网络注入机制，旨在为复杂并发算法、分布式共识协议（如 Raft/Paxos）、排队论优化及物流供应链调度提供毫秒级、零竞态、可重复验证的仿真环境。
 
@@ -130,6 +130,7 @@ fn main {
 - **目录结构简洁清爽**：包划分合理 (`core/`, `resource/`, `stats/`, `network/`)，`moon.mod` 和各层 `moon.pkg` 配置规范无错误。
 - **纯粹手动构建**：所有核心算法逻辑均精心手写设计，遵循现代 MoonBit 最佳实践 (`@test.eq`, `inspect`, 避免 `derive(Show)` 废弃宏，全面去除 `f!(..)` 旧语法)。
 - **开源协议合规**：根目录下包含标准的 `LICENSE` (Apache License 2.0) 文件。
+- **CI 已补齐**：`.github/workflows/test.yml` 覆盖 `moon check`、`moon fmt --deny-warn`、`moon info --deny-warn`、`moon test` 四个过程，并在 Ubuntu、macOS、Windows 上跑完整矩阵。
 
 ## License
 Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for more details.

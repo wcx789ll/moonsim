@@ -18,7 +18,10 @@ pub(all) struct PreemptibleResource {
 }
 
 ///|
-pub fn PreemptibleResource::new(name : String, capacity : Int) -> PreemptibleResource {
+pub fn PreemptibleResource::new(
+  name : String,
+  capacity : Int,
+) -> PreemptibleResource {
   if capacity <= 0 {
     abort("PreemptibleResource capacity must be positive")
   }
@@ -54,7 +57,7 @@ pub fn PreemptibleResource::request(
   amount : Int,
   priority : Int,
   callback : (Int?) -> Unit,
-  preempt_callback : () -> Unit
+  preempt_callback : () -> Unit,
 ) -> Int {
   if amount <= 0 || amount > self.capacity {
     abort("Invalid request amount for PreemptibleResource")
@@ -145,22 +148,20 @@ fn PreemptibleResource::allocate(
   amount : Int,
   priority : Int,
   preempt_callback : () -> Unit,
-  callback : (Int?) -> Unit
+  callback : (Int?) -> Unit,
 ) -> Unit {
   self.available = self.available - amount
   let holder_id = self.next_holder_id
   self.next_holder_id = self.next_holder_id + 1
-  self.holders.push({
-    id: holder_id,
-    amount,
-    priority,
-    preempt_callback,
-  })
+  self.holders.push({ id: holder_id, amount, priority, preempt_callback })
   callback(Some(holder_id))
 }
 
 ///|
-pub fn PreemptibleResource::release(self : PreemptibleResource, holder_id : Int) -> Unit {
+pub fn PreemptibleResource::release(
+  self : PreemptibleResource,
+  holder_id : Int,
+) -> Unit {
   let mut found = false
   let mut released_amount = 0
   let mut idx = 0

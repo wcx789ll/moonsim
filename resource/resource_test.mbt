@@ -83,11 +83,7 @@ test "preemptible_resource_priority_preemption" {
   let _ = pres.request(
     1,
     10,
-    fn(holder) {
-      if holder is Some(_) {
-        low_prio_acquired = true
-      }
-    },
+    fn(holder) { if holder is Some(_) { low_prio_acquired = true } },
     fn() { low_prio_preempted = true },
   )
   assert_true(low_prio_acquired)
@@ -99,11 +95,7 @@ test "preemptible_resource_priority_preemption" {
   let _ = pres.request(
     1,
     1,
-    fn(holder) {
-      if holder is Some(_) {
-        high_prio_acquired = true
-      }
-    },
+    fn(holder) { if holder is Some(_) { high_prio_acquired = true } },
     fn() {  },
   )
 

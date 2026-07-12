@@ -62,7 +62,7 @@ pub fn Clock::schedule_at(
   self : Clock,
   target : SimTime,
   priority : Int,
-  payload_id : Int
+  payload_id : Int,
 ) -> EventId {
   if target.val < self.time.val {
     abort("Cannot schedule event in the past")
@@ -78,7 +78,7 @@ pub fn Clock::schedule(
   self : Clock,
   delta_seconds : Double,
   priority : Int,
-  payload_id : Int
+  payload_id : Int,
 ) -> EventId {
   let target = self.time.op_add(delta_seconds)
   self.schedule_at(target, priority, payload_id)
@@ -92,7 +92,7 @@ pub fn Clock::cancel(self : Clock, id : EventId) -> Bool {
 ///|
 pub fn Clock::filter_events(
   self : Clock,
-  predicate : (PriorityEvent) -> Bool
+  predicate : (PriorityEvent) -> Bool,
 ) -> Int {
   self.heap.filter_events(predicate)
 }
