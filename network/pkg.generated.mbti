@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bins-c-language/moonsim/network"
+package "wcx789ll/moonsim/network"
 
 import {
-  "bins-c-language/moonsim/core/event",
   "moonbitlang/core/debug",
+  "wcx789ll/moonsim/core/event",
 }
 
 // Values

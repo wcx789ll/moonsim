@@ -182,6 +182,38 @@ pub fn Simulation::run(self : Simulation) -> Unit {
 }
 
 ///|
+pub fn Simulation::create_scheduler(
+  self : Simulation,
+  name : String,
+  executors : Int,
+  discipline : @scheduler.QueueDiscipline,
+  on_start : (@scheduler.Job) -> Unit,
+  on_complete : (@scheduler.Job) -> Unit,
+  on_cancel : (@scheduler.Job) -> Unit,
+  on_deadline_miss : (@scheduler.Job) -> Unit,
+) -> @scheduler.Scheduler {
+  @scheduler.Scheduler::new(
+    name,
+    executors,
+    discipline,
+    self.event_manager,
+    on_start,
+    on_complete,
+    on_cancel,
+    on_deadline_miss,
+  )
+}
+
+///|
+pub fn Simulation::create_tracer(
+  self : Simulation,
+  name : String,
+) -> @trace.Tracer {
+  let _ = self
+  @trace.Tracer::new(name)
+}
+
+///|
 pub fn Simulation::reset(self : Simulation) -> Unit {
   self.clock.reset()
 }

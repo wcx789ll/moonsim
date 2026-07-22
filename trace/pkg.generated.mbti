@@ -1,0 +1,62 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "wcx789ll/moonsim/trace"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) enum EventCategory {
+  Arrival
+  Departure
+  ResourceAcquire
+  ResourceRelease
+  StateChange
+  Annotation
+  DeadlineMiss
+  FaultInjection
+} derive(Eq, @debug.Debug)
+pub impl Show for EventCategory
+
+pub(all) struct EventRecord {
+  time : Double
+  source : String
+  message : String
+  category : EventCategory
+  value : Double?
+}
+pub fn EventRecord::to_csv_row(Self) -> String
+
+pub(all) struct Tracer {
+  name : String
+  mut enabled : Bool
+  mut record_count : Int
+  // private fields
+}
+pub fn Tracer::category_histogram(Self) -> Array[(String, Int)]
+pub fn Tracer::clear(Self) -> Unit
+pub fn Tracer::disable(Self) -> Unit
+pub fn Tracer::enable(Self) -> Unit
+pub fn Tracer::is_enabled(Self) -> Bool
+pub fn Tracer::new(String) -> Self
+pub fn Tracer::record(Self, Double, String, EventCategory, String, Double?) -> Unit
+pub fn Tracer::record_annotation(Self, Double, String, String) -> Unit
+pub fn Tracer::record_arrival(Self, Double, String, String) -> Unit
+pub fn Tracer::record_departure(Self, Double, String, String, Double?) -> Unit
+pub fn Tracer::record_state_change(Self, Double, String, String, String) -> Unit
+pub fn Tracer::records_by_category(Self, EventCategory) -> Array[EventRecord]
+pub fn Tracer::records_by_source(Self, String) -> Array[EventRecord]
+pub fn Tracer::records_in_window(Self, Double, Double) -> Array[EventRecord]
+pub fn Tracer::stored_count(Self) -> Int
+pub fn Tracer::to_csv(Self) -> String
+pub fn Tracer::total_records(Self) -> Int
+pub fn Tracer::verify_monotonic(Self) -> Bool
+
+// Type aliases
+
+// Traits
+

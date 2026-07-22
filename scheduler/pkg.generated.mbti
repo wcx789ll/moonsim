@@ -1,0 +1,92 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "wcx789ll/moonsim/scheduler"
+
+import {
+  "moonbitlang/core/debug",
+  "wcx789ll/moonsim/core/event",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct Job {
+  id : Int
+  arrival_time : Double
+  service_time : Double
+  deadline : Double?
+  priority : Int
+  mut status : JobStatus
+  mut start_time : Double?
+  mut finish_time : Double?
+}
+pub fn Job::has_missed_deadline(Self, Double) -> Bool
+pub fn Job::new(Int, Double, Double, Double?, Int) -> Self
+pub fn Job::sojourn_time(Self) -> Double?
+pub fn Job::wait_time(Self) -> Double?
+
+pub(all) struct JobQueue {
+  discipline : QueueDiscipline
+  // private fields
+}
+pub fn JobQueue::dequeue(Self) -> Job?
+pub fn JobQueue::enqueue(Self, Job) -> Unit
+pub fn JobQueue::is_empty(Self) -> Bool
+pub fn JobQueue::length(Self) -> Int
+pub fn JobQueue::new(QueueDiscipline) -> Self
+pub fn JobQueue::peek(Self) -> Job?
+pub fn JobQueue::remove_by_id(Self, Int) -> Bool
+
+pub(all) enum JobStatus {
+  Queued
+  Running
+  Completed
+  Cancelled
+  DeadlineMissed
+} derive(Eq, @debug.Debug)
+pub impl Show for JobStatus
+
+pub(all) enum QueueDiscipline {
+  Fifo
+  Lifo
+  PriorityAscending
+  PriorityDescending
+  ShortestJobFirst
+  LongestJobFirst
+  EarliestDeadlineFirst
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Scheduler {
+  name : String
+  executors : Int
+  mut busy_executors : Int
+  queue : JobQueue
+  event_manager : @event.EventManager
+  on_start : (Job) -> Unit
+  on_complete : (Job) -> Unit
+  on_cancel : (Job) -> Unit
+  on_deadline_miss : (Job) -> Unit
+  mut total_arrived : Int
+  mut total_completed : Int
+  mut total_cancelled : Int
+  mut total_deadline_miss : Int
+  mut total_wait_time : Double
+  mut total_service_time : Double
+}
+pub fn Scheduler::cancel(Self, Int) -> Bool
+pub fn Scheduler::free_executors(Self) -> Int
+pub fn Scheduler::mean_service_time(Self) -> Double
+pub fn Scheduler::mean_wait_time(Self) -> Double
+pub fn Scheduler::new(String, Int, QueueDiscipline, @event.EventManager, (Job) -> Unit, (Job) -> Unit, (Job) -> Unit, (Job) -> Unit) -> Self
+pub fn Scheduler::queue_length(Self) -> Int
+pub fn Scheduler::submit(Self, Job) -> Unit
+pub fn Scheduler::total_arrived(Self) -> Int
+pub fn Scheduler::total_cancelled(Self) -> Int
+pub fn Scheduler::total_completed(Self) -> Int
+pub fn Scheduler::total_deadline_miss(Self) -> Int
+
+// Type aliases
+
+// Traits
+

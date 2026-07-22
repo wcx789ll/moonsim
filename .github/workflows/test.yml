@@ -1,62 +1,71 @@
-name: Check and Test
+name: CI
 
 on:
-  pull_request:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
 
 jobs:
-  build:
-    permissions:
-      contents: read
+  build-and-test:
+    name: Check & Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+
+    defaults:
+      run:
+        shell: bash
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: setup-node
+      - name: Set up Node.js (required for JS target tests)
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: install-ubuntu
-        if: ${{ matrix.os != 'windows-latest' }}
+      - name: Install MoonBit toolchain (Unix)
+        if: runner.os != 'Windows'
         run: |
           curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
-          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
 
-      - name: install-windows
-        if: ${{ matrix.os == 'windows-latest' }}
+      - name: Install MoonBit toolchain (Windows)
+        if: runner.os == 'Windows'
         shell: pwsh
         run: |
           Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
           irm https://cli.moonbitlang.com/install/powershell.ps1 | iex
           "C:\Users\runneradmin\.moon\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
 
-      - name: post install
+      - name: Verify toolchain and update dependencies
         run: |
           moon version --all
           moon update
 
-      - name: moon check
-        run: moon check -d --target all
-
+      # ── Format gate ──────────────────────────────────────────────────────────
+      # Fail if any file needs reformatting (equivalent to moon fmt --deny-warn).
       - name: moon fmt --deny-warn
-        run: |
-          # Compatible with the current MoonBit toolchain; this enforces the no-format-drift gate.
-          moon fmt --check
+        run: moon fmt --check
 
+      # ── Type-check all compilation targets ───────────────────────────────────
+      - name: moon check --deny-warn
+        run: moon check -d --deny-warn --target all
+
+      # ── Interface-file gate ───────────────────────────────────────────────────
+      # Regenerate .mbti files and ensure there is no drift in the repository.
+      # The .gitattributes in this repo forces LF for all text files, so
+      # `git diff --exit-code` is reliable across all operating systems.
       - name: moon info --deny-warn
         run: |
-          # Compatible with the current MoonBit toolchain; this regenerates interfaces and fails on drift.
           moon info --target all
           git diff --exit-code
 
+      # ── Test suite ────────────────────────────────────────────────────────────
       - name: moon test
         run: moon test -d --target all

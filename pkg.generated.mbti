@@ -1,12 +1,14 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bins-c-language/moonsim"
+package "wcx789ll/moonsim"
 
 import {
-  "bins-c-language/moonsim/core/clock",
-  "bins-c-language/moonsim/core/event",
-  "bins-c-language/moonsim/network",
-  "bins-c-language/moonsim/resource",
-  "bins-c-language/moonsim/stats",
+  "wcx789ll/moonsim/core/clock",
+  "wcx789ll/moonsim/core/event",
+  "wcx789ll/moonsim/network",
+  "wcx789ll/moonsim/resource",
+  "wcx789ll/moonsim/scheduler",
+  "wcx789ll/moonsim/stats",
+  "wcx789ll/moonsim/trace",
 }
 
 // Values
@@ -25,8 +27,10 @@ pub fn[T] Simulation::create_network_topology(Self, Int) -> @network.NetworkTopo
 pub fn Simulation::create_percentile_tracker(Self, String) -> @stats.PercentileTracker
 pub fn Simulation::create_resource(Self, String, Int) -> @resource.Resource
 pub fn Simulation::create_rolling_summary(Self, String, Double) -> @stats.RollingSummary
+pub fn Simulation::create_scheduler(Self, String, Int, @scheduler.QueueDiscipline, (@scheduler.Job) -> Unit, (@scheduler.Job) -> Unit, (@scheduler.Job) -> Unit, (@scheduler.Job) -> Unit) -> @scheduler.Scheduler
 pub fn Simulation::create_sla_monitor(Self, String, Double) -> @stats.SlaMonitor
 pub fn Simulation::create_summary(Self, String, Double) -> @stats.TimeWeightedSummary
+pub fn Simulation::create_tracer(Self, String) -> @trace.Tracer
 pub fn Simulation::events(Self) -> @event.EventManager
 pub fn Simulation::get_resource(Self, String) -> @resource.Resource?
 pub fn Simulation::get_summary(Self, String) -> @stats.TimeWeightedSummary?

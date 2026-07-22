@@ -1,7 +1,9 @@
 import {
-  "bins-c-language/moonsim/core/clock",
-  "bins-c-language/moonsim/core/event",
-  "bins-c-language/moonsim/resource",
-  "bins-c-language/moonsim/stats",
-  "bins-c-language/moonsim/network",
+  "wcx789ll/moonsim/core/clock",
+  "wcx789ll/moonsim/core/event",
+  "wcx789ll/moonsim/resource",
+  "wcx789ll/moonsim/stats",
+  "wcx789ll/moonsim/network",
+  "wcx789ll/moonsim/scheduler",
+  "wcx789ll/moonsim/trace",
 }

@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bins-c-language/moonsim/core/event"
+package "wcx789ll/moonsim/core/event"
 
 import {
-  "bins-c-language/moonsim/core/clock",
   "moonbitlang/core/debug",
+  "wcx789ll/moonsim/core/clock",
 }
 
 // Values

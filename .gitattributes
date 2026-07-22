@@ -1,0 +1,13 @@
+# Force LF line endings for all text files in this repository.
+# This ensures `git diff --exit-code` does not spuriously fail when
+# `moon info` regenerates .mbti files on any OS.
+* text=auto eol=lf
+*.mbt text eol=lf
+*.mbti text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.mod text eol=lf
+*.pkg text eol=lf

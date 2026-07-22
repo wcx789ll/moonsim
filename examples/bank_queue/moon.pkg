@@ -1,7 +1,7 @@
 import {
-  "bins-c-language/moonsim",
-  "bins-c-language/moonsim/core/event",
-  "bins-c-language/moonsim/stats",
+  "wcx789ll/moonsim",
+  "wcx789ll/moonsim/core/event",
+  "wcx789ll/moonsim/stats",
 }
 
 options(

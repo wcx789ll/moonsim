@@ -1,4 +1,4 @@
-name = "bins-c-language/moonsim"
+name = "wcx789ll/moonsim"
 
 version = "0.1.0"
 

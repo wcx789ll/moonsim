@@ -1,4 +1,4 @@
 import {
-  "bins-c-language/moonsim/core/clock",
-  "bins-c-language/moonsim/core/event",
+  "wcx789ll/moonsim/core/clock",
+  "wcx789ll/moonsim/core/event",
 }

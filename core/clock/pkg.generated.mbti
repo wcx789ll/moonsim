@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bins-c-language/moonsim/core/clock"
+package "wcx789ll/moonsim/core/clock"
 
 import {
   "moonbitlang/core/debug",
