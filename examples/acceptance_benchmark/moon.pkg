@@ -1,0 +1,7 @@
+import {
+  "wcx789ll/moonsim/benchmarks",
+}
+
+options(
+  "is-main": true,
+)

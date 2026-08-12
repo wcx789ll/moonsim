@@ -1,0 +1,68 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "wcx789ll/moonsim/benchmarks"
+
+// Values
+pub fn acceptance_report_ready(BenchmarkReport) -> Bool
+
+pub fn compare_reports(BenchmarkReport, BenchmarkReport) -> String
+
+pub fn run_acceptance_report() -> BenchmarkReport
+
+pub fn run_acceptance_suite() -> Array[BenchmarkResult]
+
+pub fn run_event_benchmark(Int) -> BenchmarkResult
+
+pub fn run_network_benchmark(Int, Double) -> BenchmarkResult
+
+pub fn run_scheduler_benchmark(Int, Int) -> BenchmarkResult
+
+// Errors
+
+// Types and methods
+pub(all) struct BenchmarkReport {
+  results : Array[BenchmarkResult]
+  mut valid : Bool
+  mut total_workload : Int
+  mut total_completed : Int
+  mut total_dropped : Int
+  mut total_deadline_miss : Int
+  mut max_virtual_seconds : Double
+}
+pub fn BenchmarkReport::all_results_consistent(Self) -> Bool
+pub fn BenchmarkReport::completed_or_accounted(Self) -> Bool
+pub fn BenchmarkReport::failure_rate(Self) -> Double
+pub fn BenchmarkReport::has_complete_accounting(Self) -> Bool
+pub fn BenchmarkReport::has_no_negative_metrics(Self) -> Bool
+pub fn BenchmarkReport::has_scenario(Self, String) -> Bool
+pub fn BenchmarkReport::is_reproducible_with(Self, Self) -> Bool
+pub fn BenchmarkReport::is_valid(Self) -> Bool
+pub fn BenchmarkReport::new(Array[BenchmarkResult]) -> Self
+pub fn BenchmarkReport::overall_loss_rate(Self) -> Double
+pub fn BenchmarkReport::overall_success_rate(Self) -> Double
+pub fn BenchmarkReport::quality_gate(Self) -> Bool
+pub fn BenchmarkReport::recalculate(Self) -> Unit
+pub fn BenchmarkReport::result(Self, String) -> BenchmarkResult?
+pub fn BenchmarkReport::scenario_count(Self) -> Int
+pub fn BenchmarkReport::scenario_names(Self) -> Array[String]
+pub fn BenchmarkReport::summary(Self) -> String
+pub fn BenchmarkReport::total_failures(Self) -> Int
+
+pub(all) struct BenchmarkResult {
+  name : String
+  workload : Int
+  completed : Int
+  dropped : Int
+  missed_deadline : Int
+  virtual_seconds : Double
+  mean_wait_seconds : Double
+  p95_latency_ms : Double
+}
+pub fn BenchmarkResult::drop_rate(Self) -> Double
+pub fn BenchmarkResult::is_consistent(Self) -> Bool
+pub fn BenchmarkResult::success_rate(Self) -> Double
+pub fn BenchmarkResult::summary(Self) -> String
+
+// Type aliases
+
+// Traits
+
