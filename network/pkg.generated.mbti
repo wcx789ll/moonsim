@@ -78,4 +78,3 @@ pub(all) struct Packet[T] {
 // Type aliases
 
 // Traits
-

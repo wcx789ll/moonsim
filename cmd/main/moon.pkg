@@ -2,6 +2,4 @@
 //   "wcx789ll/moonsim" @lib,
 // }
 
-options(
-  "is-main": true,
-)
+pkgtype(kind: "executable")

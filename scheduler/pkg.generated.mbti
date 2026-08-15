@@ -89,4 +89,3 @@ pub fn Scheduler::total_deadline_miss(Self) -> Int
 // Type aliases
 
 // Traits
-

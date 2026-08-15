@@ -65,4 +65,3 @@ pub fn BenchmarkResult::summary(Self) -> String
 // Type aliases
 
 // Traits
-

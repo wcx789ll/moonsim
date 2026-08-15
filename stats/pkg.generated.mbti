@@ -89,4 +89,3 @@ pub fn TimeWeightedSummary::update(Self, Double, Double) -> Unit
 // Type aliases
 
 // Traits
-

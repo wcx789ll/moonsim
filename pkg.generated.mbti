@@ -48,4 +48,3 @@ pub fn Simulation::step(Self) -> Bool
 // Type aliases
 
 // Traits
-

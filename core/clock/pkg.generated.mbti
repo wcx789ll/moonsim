@@ -79,4 +79,3 @@ pub fn SimTime::zero() -> Self
 // Type aliases
 
 // Traits
-

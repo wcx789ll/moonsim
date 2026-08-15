@@ -4,6 +4,4 @@ import {
   "wcx789ll/moonsim/stats",
 }
 
-options(
-  "is-main": true,
-)
+pkgtype(kind: "executable")

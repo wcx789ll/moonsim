@@ -59,4 +59,3 @@ pub fn Tracer::verify_monotonic(Self) -> Bool
 // Type aliases
 
 // Traits
-

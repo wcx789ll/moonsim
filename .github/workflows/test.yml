@@ -55,7 +55,7 @@ jobs:
 
       # ── Type-check all compilation targets ───────────────────────────────────
       - name: moon check --deny-warn
-        run: moon check -d --deny-warn --target all
+        run: moon check --deny-warn --target all
 
       # ── Interface-file gate ───────────────────────────────────────────────────
       # Regenerate .mbti files and ensure there is no drift in the repository.
@@ -68,7 +68,7 @@ jobs:
 
       # ── Test suite ────────────────────────────────────────────────────────────
       - name: moon test
-        run: moon test -d --target all --deny-warn
+        run: moon test --target all --deny-warn
 
       - name: Run acceptance benchmark
         if: runner.os == 'Linux'
