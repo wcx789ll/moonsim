@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master, main ]
   pull_request:
 
 jobs:
@@ -68,4 +68,8 @@ jobs:
 
       # ── Test suite ────────────────────────────────────────────────────────────
       - name: moon test
-        run: moon test -d --target all
+        run: moon test -d --target all --deny-warn
+
+      - name: Run acceptance benchmark
+        if: runner.os == 'Linux'
+        run: moon run --target native examples/acceptance_benchmark

@@ -38,14 +38,22 @@ fn main {
                 "[\{start}s] [Spot批处理] 任务 #\{jid} 成功获取 2卡 GPU，开始训练",
               )
               let _ = sim.schedule(4.0, 10, fn() {
-                // If not preempted, complete training!
-                gpu_cluster.release(holder.unwrap())
-                spot_completed = spot_completed + 1
-                let dur = (sim.now() - arrival) * 1000.0
-                spot_tracker.record(dur)
-                println(
-                  "[\{sim.now()}s] [Spot批处理] 任务 #\{jid} 训练完成释放 GPU！总耗时: \{dur}ms",
-                )
+                // A preempted job can still have this delayed event in the
+                // queue. It must not release a new holder or count as done.
+                let holder_id = holder.unwrap()
+                if gpu_cluster.is_holder_active(holder_id) {
+                  gpu_cluster.release(holder_id)
+                  spot_completed = spot_completed + 1
+                  let dur = (sim.now() - arrival) * 1000.0
+                  spot_tracker.record(dur)
+                  println(
+                    "[\{sim.now()}s] [Spot批处理] 任务 #\{jid} 训练完成释放 GPU！总耗时: \{dur}ms",
+                  )
+                } else {
+                  println(
+                    "[\{sim.now()}s] [Spot批处理] 任务 #\{jid} 已被抢占，忽略过期完成事件",
+                  )
+                }
               })
             }
           },

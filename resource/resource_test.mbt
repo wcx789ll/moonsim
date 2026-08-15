@@ -104,3 +104,27 @@ test "preemptible_resource_priority_preemption" {
   assert_eq(pres.holder_count(), 1)
   assert_eq(pres.available(), 0)
 }
+
+///|
+test "preemptible_resource_stale_completion_is_inactive" {
+  let pres = PreemptibleResource::new("GPU", 1)
+  let mut low_holder = None
+  let mut low_preempted = false
+  let mut high_holder = None
+
+  let _ = pres.request(1, 10, fn(holder) { low_holder = holder }, fn() {
+    low_preempted = true
+  })
+  let _ = pres.request(1, 1, fn(holder) { high_holder = holder }, fn() {  })
+
+  assert_true(low_preempted)
+  assert_true(low_holder is Some(_))
+  assert_true(high_holder is Some(_))
+  let stale_id = low_holder.unwrap()
+  let current_id = high_holder.unwrap()
+  assert_true(!pres.is_holder_active(stale_id))
+  assert_true(pres.is_holder_active(current_id))
+  pres.release(stale_id)
+  assert_eq(pres.available(), 0)
+  assert_eq(pres.holder_count(), 1)
+}

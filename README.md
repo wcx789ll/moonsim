@@ -32,6 +32,28 @@ MoonSim 适合以下实际验证任务：
 
 需要 MoonBit 0.10.3 或更新版本。
 
+### 克隆与依赖
+
+仓库本身不依赖 Python、Node.js 或其他第三方运行库；只需要安装 MoonBit CLI。CI 会额外安装 Node.js 20，以便验证 JS 后端。
+
+```bash
+git clone https://github.com/wcx789ll/moonsim.git
+cd moonsim
+moon version --all
+moon update
+```
+
+PowerShell 用户可以执行：
+
+```powershell
+git clone https://github.com/wcx789ll/moonsim.git
+Set-Location moonsim
+moon version --all
+moon update
+```
+
+`moon update` 用于同步 MoonBit 模块依赖；当前仓库没有额外的第三方包需要手工安装。
+
 ```bash
 moon check
 moon test
@@ -90,6 +112,13 @@ git diff --exit-code
 ## 开源合规
 
 本项目源代码采用 Apache License 2.0，完整文本见 [LICENSE](LICENSE)。项目没有将第三方项目的源代码复制进仓库；SimPy、ns-3、Raft 等名称仅用于说明建模场景和设计对照，不表示代码派生关系。若未来引入外部代码、数据集或生成文件，应在提交前补充来源、版本、许可证和再分发说明，见 [THIRD_PARTY.md](THIRD_PARTY.md)。
+
+## 参考项目与差异范围
+
+- [SimPy](https://simpy.readthedocs.io/en/stable/)：Python 离散事件仿真框架，官方文档标注 MIT License。本项目只借鉴“进程/资源/虚拟事件”的问题域，不复制 SimPy 代码，也不依赖 Python。
+- [ns-3](https://www.nsnam.org/)：面向网络研究的离散事件网络模拟器，官方说明为 GNU GPLv2。本项目只参考网络仿真场景和故障注入需求；没有复制 ns-3 代码、模型或文档，MoonSim 继续采用 Apache-2.0。
+
+参考项目的许可证、链接和独立实现范围也登记在 [THIRD_PARTY.md](THIRD_PARTY.md)。
 
 ## 项目元数据
 

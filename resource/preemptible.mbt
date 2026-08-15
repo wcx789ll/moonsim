@@ -52,6 +52,24 @@ pub fn PreemptibleResource::holder_count(self : PreemptibleResource) -> Int {
 }
 
 ///|
+/// Return whether a holder token is still active.
+///
+/// A preempted holder becomes inactive immediately. Delayed completion
+/// callbacks should check this before releasing capacity or recording a
+/// successful completion, because the callback may run after preemption.
+pub fn PreemptibleResource::is_holder_active(
+  self : PreemptibleResource,
+  holder_id : Int,
+) -> Bool {
+  for holder in self.holders {
+    if holder.id == holder_id {
+      return true
+    }
+  }
+  false
+}
+
+///|
 pub fn PreemptibleResource::request(
   self : PreemptibleResource,
   amount : Int,

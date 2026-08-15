@@ -42,6 +42,7 @@ pub(all) struct PreemptibleResource {
 pub fn PreemptibleResource::available(Self) -> Int
 pub fn PreemptibleResource::capacity(Self) -> Int
 pub fn PreemptibleResource::holder_count(Self) -> Int
+pub fn PreemptibleResource::is_holder_active(Self, Int) -> Bool
 pub fn PreemptibleResource::new(String, Int) -> Self
 pub fn PreemptibleResource::release(Self, Int) -> Unit
 pub fn PreemptibleResource::request(Self, Int, Int, (Int?) -> Unit, () -> Unit) -> Int
